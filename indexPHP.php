@@ -1,4 +1,5 @@
 <?php 
+	session_start();
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	$con = mysqli_connect( "localhost", "root", "" );
@@ -9,6 +10,7 @@
 	$test = mysqli_fetch_array( $result );
 	if( $test['password'] == $password ){
 		echo '1';
+		$_SESSION['login'] = '1';
 	}
 
  ?>

@@ -1,3 +1,9 @@
+<?php 
+	session_start();
+	if( $_SESSION['login'] != '1' ){
+		header('Location:http://www.bule007.cn/');
+	}
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

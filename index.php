@@ -1,3 +1,11 @@
+<?php 
+	error_reporting(E_ALL^E_NOTICE^E_WARNING);
+	if( $_COOKIE['username'] != '' ){
+		session_start();
+		$_SESSION['login'] = '1';
+		header('Location:http://www.bule007.cn/information.php');
+	}
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

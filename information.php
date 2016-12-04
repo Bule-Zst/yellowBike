@@ -2,7 +2,7 @@
 	error_reporting(E_ALL^E_NOTICE^E_WARNING);
 	session_start();
 	if( $_SESSION['login'] != '1' ){
-		header('Location:http://www.bule007.cn/');
+		header('Location:www.bule007.cn');
 	}
  ?>
 <!DOCTYPE html>
@@ -16,9 +16,11 @@
 	<br>
 	password:<input id="password" type="text" placeholder="password">
 	<br>
-	<input type="button" value="submit" onclick="verify()">
+	<input type="button" value="submit" onclick="if_repeat()">
 	<br>
 	<div id="verify" style="display: none;">
+		bikeNumber has existed, do you want to update?
+		<br>
 		bike number : <span id="verifyBikeNumber"></span>
 		<br>
 		password: <span id="verifyPassword"></span>
@@ -32,6 +34,28 @@
 </body>
 </html>
 <script>
+	function if_repeat(){
+		var xhr = new XMLHttpRequest();
+		xhr.open( 'POST', 'ifrepeatPHP.php', true );
+		xhr.setRequestHeader( 'Content-type', 'application/x-www-form-urlencoded' );
+		xhr.onreadystatechange = function(){
+			if( xhr.readyState == 4 && xhr.status == 200){
+				var response = xhr.responseText
+				console.log(response)
+				if( response == 1 ){
+					verify()
+				}
+				if( response == 2 ){
+					submit()
+				}
+				if( response != 1 && response !=2 ){
+					alert(response)
+				}
+			}
+		}
+		var bikeNumber = document.getElementById('bikeNumber').value
+		xhr.send('bikeNumber='+bikeNumber)
+	}
 	function verify(){
 		document.getElementById('verify').style.display = 'block'
 		var bikeNumber = document.getElementById('bikeNumber').value
@@ -51,12 +75,14 @@
 		xhr.onreadystatechange = function(){
 			if( xhr.readyState == 4 && xhr.status == 200){
 				var response = xhr.responseText
-				console.log(response)
 				if( response == 1 ){
 					alert('submit success!')
 				}
 				if( response == 2 ){
 					alert('update password success!')
+				}
+				if( response != 1 && response != 2 ){
+					alert(response)
 				}
 			}
 		}

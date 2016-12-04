@@ -3,7 +3,7 @@
 	if( $_COOKIE['username'] != '' ){
 		session_start();
 		$_SESSION['login'] = '1';
-		header('Location:http://www.bule007.cn/information.php');
+		header('Location:www.bule007.cn/information.php');
 	}
  ?>
 <!DOCTYPE html>
